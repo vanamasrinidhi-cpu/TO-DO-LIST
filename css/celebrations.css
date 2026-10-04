@@ -1,0 +1,134 @@
+/* ============================================================
+   ApexTask — Task Completion Celebration Overlay
+   ============================================================ */
+
+/* Main Backdrop */
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.celebration-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Confetti Rain */
+.confetti-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -30px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  75%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(750deg); opacity: 0; }
+}
+
+/* Celebration Card */
+.celebration-card {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 3rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg), 0 0 80px rgba(16, 185, 129, 0.18);
+  transform: scale(0.7) translateY(40px);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 420px;
+  width: 90%;
+}
+
+.celebration-overlay.active .celebration-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Animated Checkmark Ring */
+.celebration-checkmark-wrap {
+  width: 88px;
+  height: 88px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 12px 36px rgba(16, 185, 129, 0.5);
+  animation: checkBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes checkBounceIn {
+  from { transform: scale(0) rotate(-180deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+.celebration-check-icon {
+  color: #ffffff;
+}
+
+/* Text Animations */
+.celebration-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.4rem;
+  animation: celebFadeUp 0.4s ease 0.3s both;
+}
+
+.celebration-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  animation: celebFadeUp 0.4s ease 0.4s both;
+}
+
+.celebration-task-name {
+  display: inline-block;
+  font-weight: 600;
+  color: #10b981;
+  font-size: 0.9rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.35rem 1.1rem;
+  border-radius: var(--radius-full);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: celebFadeUp 0.4s ease 0.5s both;
+}
+
+.celebration-dismiss {
+  margin-top: 1.5rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  animation: celebFadeUp 0.4s ease 0.7s both;
+}
+
+@keyframes celebFadeUp {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
